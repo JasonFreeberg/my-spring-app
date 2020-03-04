@@ -28,5 +28,5 @@ jobs:
       with:
         app-name: 'my-spring-boot-app'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_19dde0c498dd400ead03d82d2a473245 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_1759d9c34b8c427fa4918c1e6df7adf6 }}
         package: '${{ github.workspace }}/target/*.jar'
