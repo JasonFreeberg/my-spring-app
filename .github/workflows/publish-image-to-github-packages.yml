@@ -28,4 +28,4 @@ jobs:
         uses: docker/build-push-action@v2.2.1
         with:
           push: true
-          repository: JasonFreeberg/my-spring-app/my-spring-app:${{ github.sha }}
+          tags: JasonFreeberg/my-spring-app/my-spring-app:${{ github.sha }}
