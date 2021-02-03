@@ -61,6 +61,6 @@ jobs:
             az storage container create -n $CONTAINER --account-name $ACCOUNT
             az storage blob upload      -f app.zip --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
             az storage blob url         --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
-            //curl -X PUT -u <user> https://{sitename}.scm.azurewebsites.net/api/zipdeploy -H "Content-Type: application/json" -d "{'packageUri':'<zipUrl>'}"
+            #curl -X PUT -u <user> https://{sitename}.scm.azurewebsites.net/api/zipdeploy -H "Content-Type: application/json" -d "{'packageUri':'<zipUrl>'}"
             
             az storage account delete   -y -n freebergdeployment -g $GROUP
