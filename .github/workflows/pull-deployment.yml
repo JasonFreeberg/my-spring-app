@@ -28,7 +28,7 @@ jobs:
     - name: Upload artifact for deployment jobs
       uses: actions/upload-artifact@v2
       with:
-        name: jar-app
+        name: app
         path: target/app.jar
   
   publish:
