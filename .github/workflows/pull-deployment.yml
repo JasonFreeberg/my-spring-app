@@ -46,6 +46,9 @@ jobs:
         with:
           name: app
 
+      - run: ls
+      - run: cd app & ls
+
       - name: Azure CLI script
         uses: azure/CLI@v1
         with:
