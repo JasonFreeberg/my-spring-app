@@ -5,6 +5,11 @@ on:
   push:
     branches: [ master ]
 
+env:
+  GROUP: freebergDemo
+  ACCOUNT: freebergPublishingAccount
+  CONTAINER: deploymentContainer
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,9 +29,9 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: jar-app
-        path: src/target/*.jar
+        path: src/target/app.jar
   
-  upload:
+  publish:
     runs-on: ubuntu-latest
     needs: build
     
@@ -35,11 +40,21 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: app
 
       - name: Azure CLI script
         uses: azure/CLI@v1
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az account show
-            az storage -h
+            az storage account create   -n ${ACCOUNT} -g ${GROUP} -l westus --sku Standard_LRS
+            az storage container create -n ${CONTAINER} --account-name ${ACCOUNT}
+            az storage blob upload      -f app.zip --account-name ${ACCOUNT} -c ${CONTAINER} -n ${ACCOUNT}
+            az storage blob url         --account-name ${ACCOUNT} -c ${CONTAINER} -n ${ACCOUNT}
+            //curl -X PUT -u <user> https://{sitename}.scm.azurewebsites.net/api/zipdeploy -H "Content-Type: application/json" -d "{'packageUri':'<zipUrl>'}"
+            
+            az storage account delete   -y -n freebergdeployment -g ${GROUP}
