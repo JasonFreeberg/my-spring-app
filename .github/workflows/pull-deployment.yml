@@ -7,7 +7,7 @@ on:
 
 env:
   GROUP: freebergDemo
-  ACCOUNT: freebergPublishingAccount
+  ACCOUNT: publishingAccount
   CONTAINER: deploymentContainer
 
 jobs:
