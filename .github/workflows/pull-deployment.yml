@@ -8,7 +8,7 @@ on:
 env:
   GROUP: freebergDemo
   ACCOUNT: xzopublishingaccount
-  CONTAINER: deploymentContainer
+  CONTAINER: deploymentcontainer
 
 jobs:
   build:
