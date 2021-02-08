@@ -6,6 +6,7 @@ on:
     branches: [ master ]
 
 env:
+  WEBAPP: freeberg-windows
   GROUP: freebergDemo
   ACCOUNT: xzopublishingaccount
   CONTAINER: deploymentcontainer
@@ -57,10 +58,19 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az storage account create   -n $ACCOUNT -g $GROUP -l westus --sku Standard_LRS
+            az storage account create   -n $ACCOUNT   -g $GROUP -l westus --sku Standard_LRS
             az storage container create -n $CONTAINER --account-name $ACCOUNT
-            az storage blob upload      -f app.zip --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
-            az storage blob url         --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
-            #curl -X PUT -u <user> https://{sitename}.scm.azurewebsites.net/api/zipdeploy -H "Content-Type: application/json" -d "{'packageUri':'<zipUrl>'}"
+            az storage blob upload      -f app.zip    --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
             
-            az storage account delete   -y -n freebergdeployment -g $GROUP
+            export ZIP_URL=(az storage blob url --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT)
+            
+            az resource update \
+              --resource-group $GROUP \
+              --namespace Microsoft.Web \
+              --parent sites/$WEBAPP \
+              --resource-type Extensions \
+              --name MSDeploy \
+              --set properties.packageUri=$ZIP_URL \
+              --api-version 2015-08-01
+            
+            #az storage account delete -y -n freebergdeployment -g $GROUP
