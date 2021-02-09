@@ -62,7 +62,7 @@ jobs:
             az storage container create -n $CONTAINER --account-name $ACCOUNT --verbose
             az storage blob upload      -f app.zip    --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT --verbose
             
-            export ZIP_URL=(az storage blob url --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT)
+            export ZIP_URL=$(az storage blob url --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT)
             
             az resource update \
               --resource-group $GROUP \
