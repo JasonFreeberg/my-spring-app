@@ -58,9 +58,9 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az storage account create   -n $ACCOUNT   -g $GROUP -l westus --sku Standard_LRS
-            az storage container create -n $CONTAINER --account-name $ACCOUNT
-            az storage blob upload      -f app.zip    --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
+            az storage account create   -n $ACCOUNT   -g $GROUP -l westus --sku Standard_LRS --verbose
+            az storage container create -n $CONTAINER --account-name $ACCOUNT --verbose
+            az storage blob upload      -f app.zip    --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT --verbose
             
             export ZIP_URL=(az storage blob url --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT)
             
@@ -71,6 +71,7 @@ jobs:
               --resource-type Extensions \
               --name MSDeploy \
               --set properties.packageUri=$ZIP_URL \
-              --api-version 2015-08-01
+              --api-version 2015-08-01 \
+              --verbose
             
             #az storage account delete -y -n freebergdeployment -g $GROUP
