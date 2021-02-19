@@ -56,22 +56,17 @@ jobs:
       - name: Azure CLI script
         uses: azure/CLI@v1
         with:
-          azcliversion: 2.0.72
+          azcliversion: 2.19.1
           inlineScript: |
-            az storage account create   -n $ACCOUNT   -g $GROUP -l westus --sku Standard_LRS --verbose
-            az storage container create -n $CONTAINER --account-name $ACCOUNT --verbose
-            az storage blob upload      -f app.zip    --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT --verbose
+            az extension add --name webapp
+
+            az storage account create   -n $ACCOUNT   -g $GROUP -l westus --sku Standard_LRS
+            az storage container create -n $CONTAINER --account-name $ACCOUNT
+            az storage blob upload      -f app.zip    --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
             
-            export ZIP_URL=$(az storage blob url --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT)
-            
-            az resource update \
-              --resource-group $GROUP \
-              --namespace Microsoft.Web \
-              --parent sites/$WEBAPP \
-              --resource-type Extensions \
-              --name MSDeploy \
-              --set properties.packageUri=$ZIP_URL \
-              --api-version 2015-08-01 \
-              --verbose
-            
-            #az storage account delete -y -n freebergdeployment -g $GROUP
+            end=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
+            ZIP_URL=$(az storage blob generate-sas --full-uri --permissions r --expiry $end --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT)
+
+            az webapp deploy --name $WEBAPP --resource-group $GROUP --type zip --src-url $ZIP_URL 
+
+            az storage account delete -y -n freebergdeployment -g $GROUP
