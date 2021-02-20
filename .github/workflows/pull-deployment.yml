@@ -69,6 +69,6 @@ jobs:
             # echo $end
             ZIP_URL=$(az storage blob generate-sas --full-uri --permissions r --expiry "2021-02-20T00:32Z" --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT)
 
-            az webapp deploy --name $WEBAPP --resource-group $GROUP --type zip --src-url $ZIP_URL 
+            az webapp deploy --name $WEBAPP --resource-group $GROUP --type zip --src-url "$ZIP_URL" 
 
-            az storage account delete -y -n freebergdeployment -g $GROUP
+            #az storage account delete -y -n freebergdeployment -g $GROUP
