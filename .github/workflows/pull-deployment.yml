@@ -60,14 +60,17 @@ jobs:
           azcliversion: 2.19.1
           inlineScript: |
             az extension add --name webapp
+            echo `date --version`
 
             az storage account create   -n $ACCOUNT   -g $GROUP -l westus
             az storage container create -n $CONTAINER --account-name $ACCOUNT
             az storage blob upload      -f app.zip    --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
 
-            end=`date -u -d '30 minutes' '+%Y-%m-%dT%H:%MZ'`
+            # end=`date -u -d '30 minutes' '+%Y-%m-%dT%H:%MZ'`
             ZIP_URL=$(az storage blob generate-sas --full-uri --permissions r --expiry $end --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT | xargs)
 
             az webapp deploy --name $WEBAPP --resource-group $GROUP --type zip --src-url $ZIP_URL
 
             #az storage account delete -y -n freebergdeployment -g $GROUP
+        env:
+          EXPIRY: $(date -u -d '30 minutes' '+%Y-%m-%dT%H:%MZ')
