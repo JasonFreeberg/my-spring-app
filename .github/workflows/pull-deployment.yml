@@ -61,14 +61,13 @@ jobs:
           inlineScript: |
             az extension add --name webapp
 
-            az storage account create   -n $ACCOUNT   -g $GROUP -l westus --sku Standard_LRS
+            az storage account create   -n $ACCOUNT   -g $GROUP -l westus
             az storage container create -n $CONTAINER --account-name $ACCOUNT
             az storage blob upload      -f app.zip    --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
-            
-            # end=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
-            # echo $end
-            ZIP_URL=$(az storage blob generate-sas --full-uri --permissions r --expiry "2021-02-20T00:32Z" --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT)
 
-            az webapp deploy --name $WEBAPP --resource-group $GROUP --type zip --src-url "$ZIP_URL" 
+            end=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
+            ZIP_URL=$(az storage blob generate-sas --full-uri --permissions r --expiry $end --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT | xargs)
+
+            az webapp deploy --name $WEBAPP --resource-group $GROUP --type zip --src-url $ZIP_URL
 
             #az storage account delete -y -n freebergdeployment -g $GROUP
