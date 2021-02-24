@@ -54,6 +54,10 @@ jobs:
           files: app.jar
           dest: app.zip
 
+      - name: Set SAS token expiration
+        run: |
+            echo "expiry=`date -u -d '30 minutes' '+%Y-%m-%dT%H:%MZ'`" >> $GITHUB_ENV
+
       - name: Azure CLI script
         uses: azure/CLI@v1
         with:
@@ -67,7 +71,7 @@ jobs:
             az storage blob upload      -f app.zip    --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
 
             # end=`date -u -d '30 minutes' '+%Y-%m-%dT%H:%MZ'`
-            ZIP_URL=$(az storage blob generate-sas --full-uri --permissions r --expiry $end --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT | xargs)
+            ZIP_URL=$(az storage blob generate-sas --full-uri --permissions r --expiry ${{ env.expiry }} --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT | xargs)
 
             az webapp deploy --name $WEBAPP --resource-group $GROUP --type zip --src-url $ZIP_URL
 
