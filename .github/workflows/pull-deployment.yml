@@ -69,7 +69,6 @@ jobs:
             az storage container create -n $CONTAINER --account-name $ACCOUNT
             az storage blob upload      -f app.zip    --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT
 
-            # end=`date -u -d '30 minutes' '+%Y-%m-%dT%H:%MZ'`
             ZIP_URL=$(az storage blob generate-sas --full-uri --permissions r --expiry ${{ env.expiry }} --account-name $ACCOUNT -c $CONTAINER -n $ACCOUNT | xargs)
 
             az webapp deploy --name $WEBAPP --resource-group $GROUP --type zip --src-url $ZIP_URL
