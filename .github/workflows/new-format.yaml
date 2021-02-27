@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:                                  # Rename this, used to be "build-and-deploy"
+  build:                                              # Rename this, used to be "build-and-deploy"
     runs-on: ubuntu-latest
 
     steps:
@@ -34,18 +34,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'production'                    # In the template this will be the slot name parameter
+      name: 'production'                              # In the template this will be the slot name parameter
       url: ${{ steps.deploy-to-webapp.webapp-url }}
 
     steps:
-    - name: Download artifact from build job
+    - name: Download artifact from build job          # Add download step
       uses: actions/download-artifact@v2
       with:
         name: java-app
-        path: .
-
-    - name: Display structure of downloaded files
-      run: ls -R
+        path: .                                       # Load the files right on the root path, this directory will be clean otherwise
 
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
@@ -54,4 +51,4 @@ jobs:
         app-name: 'freeberg-java-8-workflow-change'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_3c2cec5b96b54c23836654a1b951fd54 }}
-        package: '*.jar'
+        package: '*.jar'                              # This param is updated to just be the last part of the path, since the files will now be on root
