@@ -35,7 +35,7 @@ jobs:
     needs: build
     environment:
       name: 'production'                              # In the template this will be the slot name parameter
-      url: ${{ steps.deploy-to-webapp.webapp-url }}
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
     - name: Download artifact from build job          # Add download step
@@ -52,6 +52,3 @@ jobs:
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_3c2cec5b96b54c23836654a1b951fd54 }}
         package: '*.jar'                              # This param is updated to just be the last part of the path, since the files will now be on root
-
-    - name: debug url
-      run: echo ${{ steps.deploy-to-webapp.webapp-url }}
