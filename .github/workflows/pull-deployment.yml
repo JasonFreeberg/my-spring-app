@@ -11,7 +11,7 @@ env:
   GROUP: freebergDemo
   ACCOUNT: xzopublishingaccount
   CONTAINER: deploymentcontainer
-  EXPIRY_TIME: "10 minutes"
+  EXPIRY_TIME: 10 minutes
 
 jobs:
   build:
