@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2                       # Pin this to a version
 
     - name: Set up Java version
       uses: actions/setup-java@v1
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'production'                              # In the template this will be the slot name parameter
+      name: 'production'                              # In the template this will be the slot name parameter. Other variants: "conotoso-app: production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
