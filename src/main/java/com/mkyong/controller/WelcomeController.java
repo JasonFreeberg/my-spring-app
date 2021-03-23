@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -34,6 +35,14 @@ public class WelcomeController {
         model.addAttribute("message", name);
 
         return "welcome"; //view
+    }
+
+    @GetMapping("/health")
+    public String health() {
+        Date date = new Date();
+        System.out.println("** Request received on /health at "+date.toString()); 
+
+        return "Response from health endpoint";
     }
 
 }
