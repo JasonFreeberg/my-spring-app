@@ -24,7 +24,7 @@ public class WelcomeController {
         model.addAttribute("message", message);
         model.addAttribute("tasks", tasks);
 
-        return "welcome"; //view
+        return "fail"; //view
     }
 
     // /hello?name=kotlin
