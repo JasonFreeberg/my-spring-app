@@ -19,16 +19,17 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    - uses: docker/login-action@v1
+    - uses: azure/docker-login@v1
       with:
-        username: ${{ secrets.AzureAppService_ContainerUsername_15e3416340d740e89ea8c9c2804402de }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_69ac9170eaf94416a4cddfd22a8c9431 }}
+        login-server: https://index.docker.io/v1/
+        username: ${{ secrets.AzureAppService_ContainerUsername_47b305d886214342ac3fb3f2674f145a }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_d70e128e867243d09a2013e5a03e84ab }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2.2.1
       with:
         push: true
-        tags: ${{ secrets.AzureAppService_ContainerUsername_15e3416340d740e89ea8c9c2804402de }}/my-spring-app:${{ github.sha }}
+        tags: jasonfreeberg/my-spring-app:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -45,5 +46,5 @@ jobs:
       with:
         app-name: 'freeberg-container-site'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_0a627da12e22427db61d3ffb2b33741b }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_15e3416340d740e89ea8c9c2804402de }}/my-spring-app:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_0298a5a6220a4ed9933625ada9f2a092 }}
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_47b305d886214342ac3fb3f2674f145a }}/jasonfreeberg/my-spring-app:${{ github.sha }}'
