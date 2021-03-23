@@ -21,7 +21,6 @@ jobs:
 
     - uses: docker/login-action@v1
       with:
-        registry: hub.docker.com
         username: ${{ secrets.AzureAppService_ContainerUsername_15e3416340d740e89ea8c9c2804402de }}
         password: ${{ secrets.AzureAppService_ContainerPassword_69ac9170eaf94416a4cddfd22a8c9431 }}
 
