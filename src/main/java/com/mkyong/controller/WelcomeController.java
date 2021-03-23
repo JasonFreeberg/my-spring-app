@@ -42,7 +42,7 @@ public class WelcomeController {
         Date date = new Date();
         System.out.println("** Request received on /health at "+date.toString()); 
 
-        return "Response from health endpoint";
+        return "welcome";
     }
 
 }
