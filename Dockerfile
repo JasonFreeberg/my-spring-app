@@ -11,5 +11,5 @@ FROM openjdk:8-jdk
 
 COPY --from=0 /project/target/*.jar /app.jar
 
-EXPOSE 80
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
