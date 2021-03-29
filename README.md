@@ -1,12 +1,8 @@
 # My Spring App
 
-My cool new app 😎
+Trying to get started with Java on Azure? See these resources:
 
-```shell
-git clone https://github.com/JasonFreeberg/my-spring-app.git
-cd my-spring-app
-mvn spring-boot:run
-```
-
-
-
+- https://github.com/azure-samples?q=java&type=&language=&sort=
+- https://docs.microsoft.com/en-us/azure/app-service/quickstart-java?tabs=javase&pivots=platform-linux
+- https://docs.microsoft.com/en-us/azure/app-service/tutorial-java-spring-cosmosdb
+- https://docs.microsoft.com/it-it/java/api/overview/azure/maven/azure-webapp-maven-plugin/readme?view=azure-java-stable#quick-start
