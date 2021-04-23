@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: freebergacr.azurecr.io/example-mage-name:${{ github.sha }}
+        tags: example-mage-name:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
