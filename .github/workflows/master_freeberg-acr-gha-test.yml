@@ -49,3 +49,5 @@ jobs:
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_ce842c878e91468e90db6cf9561b0b75 }}
         images: 'freebergacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_0c378f0233db4c2eb6f22efaceb89334 }}/example-mage-name:${{ github.sha }}'
+
+# hello
