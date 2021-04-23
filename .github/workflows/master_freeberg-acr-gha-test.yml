@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ secrets.AzureAppService_ContainerUsername_76d2b68a4f0b41d3a00695603057a525 }}/my-spring-repo/my-image:${{ github.sha }}
+        tags: my-spring-repo/my-image:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
