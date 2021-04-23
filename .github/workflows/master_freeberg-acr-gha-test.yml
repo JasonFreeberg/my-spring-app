@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ secrets.AzureAppService_ContainerUsername_0c378f0233db4c2eb6f22efaceb89334 }}/example-mage-name:${{ github.sha }}
+        tags: example-mage-name:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
