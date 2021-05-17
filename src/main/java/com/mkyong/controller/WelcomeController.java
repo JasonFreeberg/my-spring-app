@@ -23,6 +23,9 @@ public class WelcomeController {
     public String main(Model model) {
         model.addAttribute("message", message);
         model.addAttribute("tasks", tasks);
+        
+        System.out.println("Example log from std out.");
+        System.out.println("Another example log from std out!");
 
         return "welcome"; //view
     }
@@ -33,6 +36,8 @@ public class WelcomeController {
             @RequestParam(name = "name", required = false, defaultValue = "") String name, Model model) {
 
         model.addAttribute("message", name);
+        
+        System.out.println("Hello controller, name = "+name); 
 
         return "welcome"; //view
     }
