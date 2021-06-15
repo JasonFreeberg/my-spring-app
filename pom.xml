@@ -55,6 +55,13 @@
             <version>${bootstrap.version}</version>
         </dependency>
 
+        <dependency> 
+            <groupId>com.googlecode.mp4parser</groupId> 
+            <artifactId>isoparser</artifactId> 
+            <version>1.0.1</version>
+            <optional>false</optional>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>app</finalName>

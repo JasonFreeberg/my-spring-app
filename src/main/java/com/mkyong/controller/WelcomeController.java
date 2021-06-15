@@ -50,4 +50,10 @@ public class WelcomeController {
         return "welcome";
     }
 
+    @GetMapping("/test")
+    public String test(Model model) {
+        model.addAttribute("Hello from the backend!", message);
+
+        return "test";
+    }
 }
