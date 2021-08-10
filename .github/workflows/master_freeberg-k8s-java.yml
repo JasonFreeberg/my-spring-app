@@ -42,6 +42,11 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: java-app
+        
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.K8S_RG_SP }}
 
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
@@ -49,5 +54,4 @@ jobs:
       with:
         app-name: 'freeberg-k8s-java'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_658b84addc344fcf94495842762f0910 }}
         package: '*.jar'
