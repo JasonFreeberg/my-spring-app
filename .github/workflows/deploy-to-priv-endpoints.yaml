@@ -8,7 +8,7 @@ on:
 env:
   WEBAPP: freeberg-pirv-endpoint-site
   GROUP: freeberg-priv-endpoints
-  ACCOUNT: deploymentartifacts121212  # 0-23 characters, lowercase and numbers only
+  ACCOUNT: deploymentartifacts101  # 0-23 characters, lowercase and numbers only
   CONTAINER: artifacts
   EXPIRY_TIME: 10 minutes
 
