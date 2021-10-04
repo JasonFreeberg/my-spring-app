@@ -57,6 +57,7 @@
 
     </dependencies>
     <build>
+        <finalName>app</finalName>
         <plugins>
 
             <!-- Package as an executable jar/war -->
