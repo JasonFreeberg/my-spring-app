@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  WEBAPP: freeberg-pirv-endpoint-site
+  WEBAPP: freeberg-windows-priv-endpoint-site
   GROUP: freeberg-priv-endpoint
   ACCOUNT: deploymentartifacts101  # 0-23 characters, lowercase and numbers only
   CONTAINER: artifacts
