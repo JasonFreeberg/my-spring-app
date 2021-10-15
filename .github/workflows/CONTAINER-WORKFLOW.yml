@@ -25,18 +25,12 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Down-case the repo name
-      run: |
-        echo "REPO=${{ github.repository }},," >>${GITHUB_ENV}
-        echo $REPO
-        echo $ENV
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ghcr.io/${{ github.actor }}/my-spring-app:${{ github.sha }}
+        tags: ghcr.io/jasonfreeberg/my-spring-app:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -54,4 +48,4 @@ jobs:
         app-name: 'freeberg-gha-test'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_62ee506007b14295a8141164945d7793 }}
-        images: 'ghcr.io/my-spring-app:${{ github.sha }}'
+        images: 'ghcr.io/jasonfreeberg/my-spring-app:${{ github.sha }}'
