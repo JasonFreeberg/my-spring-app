@@ -25,6 +25,11 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Down-case the repo name
+      run: |
+        echo "REPO=${{ github.repository }}" >>${GITHUB_ENV}
+        echo $REPO
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
