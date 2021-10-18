@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  WEBAPP: freeberg-pirv-endpoint-site
+  WEBAPP: freeberg-windows-priv-endpoint-site
   GROUP: freeberg-priv-endpoint
   ACCOUNT: deploymentartifacts101  # 0-23 characters, lowercase and numbers only
   CONTAINER: artifacts
@@ -62,7 +62,7 @@ jobs:
         with:
           azcliversion: 2.19.1
           inlineScript: |
-            az extension add --name webapp
+            az extension add --name webapp --version 0.3.1
             
             az storage account create   -n $ACCOUNT   -g $GROUP -l westus
             az storage container create -n $CONTAINER --account-name $ACCOUNT
