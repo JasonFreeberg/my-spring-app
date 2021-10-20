@@ -15,12 +15,15 @@ public class RESTController {
     @GetMapping("/health")
     public Map<String, String> health(HttpServletRequest request) {
         Date date = new Date();
-        System.out.println("** Request received on /health at "+date.toString()+" over "+request.getScheme()+" on port "+String.valueOf(request.getLocalPort()));
-
         HashMap<String, String> map = new HashMap<>();
+        
         map.put("requestTime", date.toString());
         map.put("scheme", request.getScheme());
         map.put("port", String.valueOf(request.getLocalPort()));
+        map.put("URL", request.getRequestURL().toString());
+
+        System.out.println("** Request received on /health at "+map.get("requestTime")+" over "+map.get("scheme")+" on port "+map.get("port"));
+        System.out.println("Full URL: "+map.get("URL"));
 
         return map;
     }
