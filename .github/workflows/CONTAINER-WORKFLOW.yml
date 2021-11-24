@@ -25,12 +25,15 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Lowercase the repo name and username
+      run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ghcr.io/jasonfreeberg/my-spring-app:${{ github.sha }}
+        tags: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
         file: ./Dockerfile
 
   deploy:
@@ -41,6 +44,9 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+    - name: Lowercase the repo name
+      run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+      
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
@@ -48,4 +54,4 @@ jobs:
         app-name: 'freeberg-gha-test'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_62ee506007b14295a8141164945d7793 }}
-        images: 'ghcr.io/jasonfreeberg/my-spring-app:${{ github.sha }}'
+        images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
