@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.Enumeration;
 
 @RestController
 public class RESTController {
@@ -25,6 +26,13 @@ public class RESTController {
         System.out.println("** Request received on /health at "+map.get("requestTime")+" over "+map.get("scheme")+" on port "+map.get("port"));
         System.out.println("Full URL: "+map.get("URL"));
 
+        System.out.println("Headers:");
+        for (Enumeration<String> e = request.getHeaderNames(); e.hasMoreElements();) {
+            String headerName = (String) e.nextElement();
+            String headerValue = request.getHeader(headerName);
+
+            System.out.println("\t"+headerName+" = "+headerValue);
+        }
         return map;
     }
 }
